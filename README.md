@@ -18,4 +18,4 @@ Det finnes tre forskjellige typer «kunder» i teateret:
   - For hver Privatabonnent skal det lagres navn, adresse og telefonnummer, samt hvilket sete det abonneres på
 - Bedriftsabonnent:
   - Dette er en bedrift som abonnerer på <u>ett eller flere faste seter</u> i salen til alle forestillinger
-  - For hver bedriftsabonnent skal det lagres navn på firmaet, adresse, kontaktperson og telefonnummer, samt hvilke seter bedriften abonnerer på
+  - For hver bedriftsabonnent skal det lagres navn på firmaet, kontaktperson og telefonnummer, samt hvilke seter bedriften abonnerer på

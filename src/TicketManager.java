@@ -1,3 +1,5 @@
+import java.util.List;
+
 /**
  * Oppgave 1a
  *
@@ -15,7 +17,7 @@
 public class TicketManager {
     public static void main(String[] args) {
         Debug.on();
-        Customers.getDummyData();
+        Theatre theatre = new Theatre("Hjertnes kino");
         oppgave_1a();
     }
     private static void printCustomers() {
@@ -24,8 +26,12 @@ public class TicketManager {
             Debug.console(c.toString());
         }
     }
+    private static void printSection()  {
+
+    }
     private static void oppgave_1a() {
-        Debug.console("oppgave_1a:\n----------");
-        printCustomers();
+        //Debug.console("oppgave_1a:\n----------");
+        //printCustomers();
+        //printSection();
     }
 }

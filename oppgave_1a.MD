@@ -18,11 +18,11 @@
     ----------
     Customers:
     ----------
-    Customer id: 0, type: Random , name: Donald & Melania Trumph, phone: 666 66 666, seats:
+    Customer id: 0, type: Customer.Random , name: Donald & Melania Trumph, phone: 666 66 666, seats:
         rowNdx: 0, seatNdx: 0
         rowNdx: 21, seatNdx: 14
-    Customer id: 1, type: Private, name: Donald Duck, phone: 777 77 777, seat rowNdx: 3, seatNdx: 5
-    Customer id: 2, type: Company , name: Skamplett AS, kontakt: Døve Dankert, phone: 888 88 888, seats:
+    Customer id: 1, type: Customer.Private, name: Donald Duck, phone: 777 77 777, seat rowNdx: 3, seatNdx: 5
+    Customer id: 2, type: Customer.Company , name: Skamplett AS, kontakt: Døve Dankert, phone: 888 88 888, seats:
         rowNdx: 21, seatNdx: 0
         rowNdx: 21, seatNdx: 1
         rowNdx: 21, seatNdx: 2
