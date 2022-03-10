@@ -7,13 +7,19 @@ class Customer {
     private int id;
     private String name;
     private String phoneNumber;
-    private int seats[];
+    private Seat seats[];
     private EType eType;
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Name: ").append(name).append(Debug.NL).append("Phone: ").append(phoneNumber).append(Debug.NL);
+
+        for (Seat seat : seats) {
+            sb.append("\tSeat in section: " + seat.getSection()).
+                append(", rowNdx: ").append(seat.getRowNdx()).
+                append(", seatNdx: ").append(seat.getSeatNdx()).append(Debug.NL);
+        }
 
         return String.valueOf(sb);
     }
@@ -41,11 +47,16 @@ class Customer {
         this.phoneNumber = phoneNumber;
     }
 
-    public int[] getSeats() {
+    public Seat[] getSeats() {
         return seats;
     }
-
-    public void setSeats(int[] seats) {
+    public void setSeats(Seat[] seats, EType eType) {
+        this.seats = seats;
+        for (Seat seat : seats) {
+            seat.setSeatState(eType==EType.RANDOM ? SEATSTATE.randomReserved : SEATSTATE.reserved);
+        }
+    }
+    public void setSeats(Seat[] seats) {
         this.seats = seats;
     }
 
@@ -57,14 +68,19 @@ class Customer {
         this.eType = eType;
     }
 
+    Customer() {
+        this.setSeats(new Seat[0]);
+    }
     public static class Private extends Customer {
         Private(){
+            super();
             setEType(EType.PRIVATE);
         }
     }
 
     public static class Random extends Customer {
         Random() {
+            super();
             setEType(EType.RANDOM);
         }
     }
@@ -72,6 +88,7 @@ class Customer {
     public static class Company extends Customer{
         private String contactPerson;
         Company(){
+            super();
             setEType(EType.COMPANY);
         }
 

@@ -17,21 +17,9 @@ import java.util.List;
 public class TicketManager {
     public static void main(String[] args) {
         Debug.on();
-        Theatre theatre = new Theatre("Hjertnes kino");
-        oppgave_1a();
-    }
-    private static void printCustomers() {
-        Debug.console("Customers:\n----------");
-        for (Customer c : Customers.list) {
-            Debug.console(c.toString());
-        }
+        new Theatre("Hjertnes kino");
     }
     private static void printSection()  {
 
-    }
-    private static void oppgave_1a() {
-        //Debug.console("oppgave_1a:\n----------");
-        //printCustomers();
-        //printSection();
     }
 }

@@ -2,34 +2,56 @@ public class Section {
     Row[] rows;
     String name;
     int rowCount;
+    int section;
 
-    Section(String name, int[] rowSeatCount) {
+    Section(int section, String name, int[] rowSeatCount) {
         this.name = name;
         this.rowCount = rowSeatCount.length;
         rows = new Row[this.rowCount];
-        for (int i=0; i<rowCount; i++) {
+        for (int i = 0; i < rowCount; i++) {
             int seatCount = rowSeatCount[i];
-            rows[i] = new Row(i, seatCount);
+            rows[i] = new Row(section, i, seatCount);
         }
     }
+
     static class Row {
         int rowNdx;
         Seat[] seats;
-        Row(int rowNdx, int seatCount) {
+
+        Row(int section, int rowNdx, int seatCount) {
             this.rowNdx = rowNdx;
             seats = new Seat[seatCount];
-            for (int seatNdx=0; seatNdx<seatCount; seatNdx++) {
-                seats[seatNdx] = new Seat(rowNdx, seatNdx);
+            for (int seatNdx = 0; seatNdx < seatCount; seatNdx++) {
+                seats[seatNdx] = new Seat(section, rowNdx, seatNdx);
             }
         }
     }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("\tName: ").append(name).append(Debug.NL).append("\t\tRows: ").append(rowCount).append(Debug.NL);
+        sb.append("\tSection: ").append(name).append(Debug.NL).
+                append("\t\tRows: ").append(rowCount).append(Debug.NL);
         for (int i = 0; i < rows.length; i++) {
             Row row = rows[i];
-            sb.append("\t\tRow number: ").append(i).append(", seats: ").append(row.seats.length);
+            sb.append("\t\t\tRow number: ").append(i).append(", seats: ").append(row.seats.length);
+
+            for (int j = 0; j < row.seats.length; j++) {
+                Seat seat = row.seats[j];
+                Customer customer = seat.getCustomer();
+                if (customer != null) {
+//          Customer id: 2, Type: Private, Name: Donald Duck, Phone: 777 77 777, Section: Hoved, Row: 1, Seat: 14
+
+                    sb.append("\t\t\t\tCustomer id: ").append(customer.getId()).
+                        append(", Type: ").append(customer.getEType()).
+                        append(", Name").append(customer.getName()).
+                        append(", Phone: ").append(customer.getPhoneNumber()).
+                        append(", Section: ").append(name).
+                        append(", Row: ").append(i).
+                        append(", Seat: ").append(j);
+                }
+            }
+
             return String.valueOf(sb);
         }
         return String.valueOf(sb);

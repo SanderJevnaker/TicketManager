@@ -9,6 +9,11 @@ public class Customers {
         customer.setId(nextId++);
         customer.setName("Ole Olsen Lorem Ipsumius");
         customer.setPhoneNumber("4121412");
+        Seat[] s = new Seat[3];
+        s[0] = new Seat(0, 0, 0, customer);
+        s[1] = new Seat(0, 0, 1, customer);
+        s[2] = new Seat(0, 0, 2, customer);
+        customer.setSeats(s);
         customer.setEType(EType.PRIVATE);
         list.add(customer);
 
