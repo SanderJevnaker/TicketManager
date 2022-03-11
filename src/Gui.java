@@ -39,10 +39,6 @@ public class Gui {
 
     public Gui() {
         frame = new JFrame("Hjertnes Kino");
-        //frame.setBounds(C.pos.frame.x, C.pos.frame.y, C.height.frame, C.width.frame);
-        frame.setSize(C.width.frame, C.height.frame);
-        frame.setVisible(true);
-        frame.setLayout(null);
 
         JPanel informPanel = new JPanel();
         informPanel.setName("Inform Panel");
@@ -69,6 +65,11 @@ public class Gui {
         frame.add(leftPanel);
         frame.add(rightPanel);
         frame.add(bottomPanel);
+        frame.setBounds(C.pos.frame.x, C.pos.frame.y, C.height.frame, C.width.frame);
+        //frame.setSize(C.width.frame, C.height.frame);
+        frame.setVisible(true);
+        //frame.setLayout(null);
+        frame.setExtendedState (java.awt.Frame.MAXIMIZED_BOTH);
         //frame.pack();
     }
 }
