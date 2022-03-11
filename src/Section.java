@@ -2,7 +2,6 @@ public class Section {
     Row[] rows;
     String name;
     int rowCount;
-    int section;
 
     Section(int section, String name, int[] rowSeatCount) {
         this.name = name;
@@ -31,10 +30,10 @@ public class Section {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("\tSection: ").append(name).append(Debug.NL).
-                append("\t\tRows: ").append(rowCount).append(Debug.NL);
+        append("\t\tRows: ").append(rows.length).append(Debug.NL);
         for (int i = 0; i < rows.length; i++) {
             Row row = rows[i];
-            sb.append("\t\t\tRow number: ").append(i).append(", seats: ").append(row.seats.length);
+            sb.append("\t\t\tRow number: ").append(i).append(", seats: ").append(row.seats.length).append(Debug.NL);
 
             for (int j = 0; j < row.seats.length; j++) {
                 Seat seat = row.seats[j];
@@ -44,15 +43,16 @@ public class Section {
 
                     sb.append("\t\t\t\tCustomer id: ").append(customer.getId()).
                         append(", Type: ").append(customer.getEType()).
-                        append(", Name").append(customer.getName()).
+                        append(", Name: ").append(customer.getName()).
                         append(", Phone: ").append(customer.getPhoneNumber()).
                         append(", Section: ").append(name).
                         append(", Row: ").append(i).
-                        append(", Seat: ").append(j);
+                        append(", Seat: ").append(j).
+                        append(Debug.NL);
                 }
             }
 
-            return String.valueOf(sb);
+            //return String.valueOf(sb);
         }
         return String.valueOf(sb);
     }

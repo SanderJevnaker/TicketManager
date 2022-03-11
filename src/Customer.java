@@ -57,6 +57,9 @@ class Customer {
         }
     }
     public void setSeats(Seat[] seats) {
+        if (this.eType==EType.PRIVATE && seats.length > 1) {
+            throw new IllegalArgumentException("Invalid parameter passed to Customer.setSeats: seats should have a length of 1");
+        }
         this.seats = seats;
     }
 

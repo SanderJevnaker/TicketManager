@@ -19,7 +19,4 @@ public class TicketManager {
         Debug.on();
         new Theatre("Hjertnes kino");
     }
-    private static void printSection()  {
-
-    }
 }
