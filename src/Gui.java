@@ -1,5 +1,8 @@
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
+
+import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 public class Gui {
     JFrame frame;
@@ -37,39 +40,115 @@ public class Gui {
         }
     }
 
+    static class B {
+        static Color color = Color.black;
+        static int width = 1;
+    }
+
+    private JPanel informPanel;
+
     public Gui() {
         frame = new JFrame("Hjertnes Kino");
 
-        JPanel informPanel = new JPanel();
+        informPanel = new JPanel();
         informPanel.setName("Inform Panel");
         informPanel.setBounds(C.pos.informPanel.x, C.pos.informPanel.y, C.width.informPanel, C.height.informPanel);
         informPanel.setBackground(C.color.informPanel);
+        inform("Gutta liker djåms");
 
         JPanel leftPanel = new JPanel();
         leftPanel.setName("Left Panel");
         leftPanel.setBounds(C.pos.leftPanel.x, C.pos.leftPanel.y, C.width.leftPanel, C.height.leftPanel);
         leftPanel.setBackground(C.color.leftPanel);
-        leftPanel.add(new JLabel("Tjohei"));
+        leftPanel.add(new JLabel("Tuva Christine Andersen"));
 
         JPanel rightPanel = new JPanel();
         rightPanel.setName("Right Panel");
         rightPanel.setBounds(C.pos.rightPanel.x, C.pos.rightPanel.y, C.width.rightPanel, C.height.rightPanel);
         rightPanel.setBackground(C.color.rightPanel);
 
+        JButton button1 = new JButton();
+        button1.setText("TEST!");
+
         JPanel bottomPanel = new JPanel();
         bottomPanel.setName("Bottom Panel");
         bottomPanel.setBounds(C.pos.bottomPanel.x, C.pos.bottomPanel.y, C.width.bottomPanel, C.height.bottomPanel);
         bottomPanel.setBackground(C.color.bottomPanel);
+        bottomPanel.add(button1);
 
-        frame.add(informPanel);
-        frame.add(leftPanel);
-        frame.add(rightPanel);
-        frame.add(bottomPanel);
-        frame.setBounds(C.pos.frame.x, C.pos.frame.y, C.height.frame, C.width.frame);
-        //frame.setSize(C.width.frame, C.height.frame);
+
+        frame.setPreferredSize(new Dimension(C.width.frame, C.height.frame));
+
+        frame.setContentPane(makeBase());
+
+        informPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        frame.add(informPanel, getGridBagConstraints(0));
+
+
+        frame.add(makeContent(leftPanel, rightPanel), getGridBagConstraints(1));
+
+        frame.add(bottomPanel, getGridBagConstraints(2));
+
+        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         frame.setVisible(true);
-        //frame.setLayout(null);
-        frame.setExtendedState (java.awt.Frame.MAXIMIZED_BOTH);
-        //frame.pack();
+        frame.pack();
+    }
+
+    private JPanel makeBase() {
+        GridBagLayout gblFrame = new GridBagLayout();
+        gblFrame.rowHeights = new int[]{C.height.informPanel, C.height.leftPanel, C.height.bottomPanel};
+        gblFrame.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0};
+        gblFrame.columnWidths = new int[]{C.width.frame};
+        gblFrame.columnWeights = new double[]{0.0};
+
+        JPanel jPanel = new JPanel();
+        jPanel.setBackground(Color.pink);
+        jPanel.setBorder(new LineBorder(B.color, B.width));
+        jPanel.setLayout(gblFrame);
+
+        return jPanel;
+    }
+
+    private void inform(String msg) {
+        JLabel label = new JLabel(msg);
+        informPanel.removeAll();
+        informPanel.add(label);
+    }
+
+    private GridBagConstraints getGridBagConstraints(int yNdx) {
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.weightx = 0.0;
+        gbc.weighty = 0.0;
+        gbc.gridx = 0;
+        gbc.gridy = yNdx;
+
+        return gbc;
+    }
+
+    private GridBagConstraints getGridBagConstraints(int xNdx, int yNdx) {
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.weightx = 0.0;
+        gbc.weighty = 0.0;
+        gbc.gridx = xNdx;
+        gbc.gridy = yNdx;
+
+        return gbc;
+    }
+
+    private JPanel makeContent(JPanel leftPanel, JPanel rightPanel) {
+        getGridBagConstraints(0, 0);
+        GridBagLayout gbl = new GridBagLayout();
+        gbl.rowHeights = new int[]{C.height.leftPanel};
+        gbl.rowWeights = new double[]{0.0};
+        gbl.columnWidths = new int[]{C.width.leftPanel, C.width.rightPanel};
+        gbl.columnWeights = new double[]{0.0, 0.0};
+        JPanel panel = new JPanel();
+        panel.setLayout(gbl);
+        panel.add(leftPanel, getGridBagConstraints(0, 0));
+        rightPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        panel.add(rightPanel, getGridBagConstraints(1, 0));
+        return panel;
     }
 }
