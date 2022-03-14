@@ -4,7 +4,7 @@ import java.awt.*;
 
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
-public class Gui {
+public class Gui extends GuiBase {
     JFrame frame;
 
     static class C {
@@ -115,27 +115,6 @@ public class Gui {
         informPanel.add(label);
     }
 
-    private GridBagConstraints getGridBagConstraints(int yNdx) {
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.fill = GridBagConstraints.BOTH;
-        gbc.weightx = 0.0;
-        gbc.weighty = 0.0;
-        gbc.gridx = 0;
-        gbc.gridy = yNdx;
-
-        return gbc;
-    }
-
-    private GridBagConstraints getGridBagConstraints(int xNdx, int yNdx) {
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.fill = GridBagConstraints.BOTH;
-        gbc.weightx = 0.0;
-        gbc.weighty = 0.0;
-        gbc.gridx = xNdx;
-        gbc.gridy = yNdx;
-
-        return gbc;
-    }
 
     private JPanel makeContent(JPanel leftPanel, JPanel rightPanel) {
         getGridBagConstraints(0, 0);
