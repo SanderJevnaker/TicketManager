@@ -1,2 +1,5 @@
-package PACKAGE_NAME;public interface SectionInterface {
+import javax.swing.*;
+
+public interface SectionInterface {
+    JPanel render(Theatre theatre, Section section);
 }

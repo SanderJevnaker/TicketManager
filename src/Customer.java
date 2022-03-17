@@ -1,9 +1,7 @@
-enum EType{
-    PRIVATE,
-    RANDOM,
-    COMPANY,
-}
 class Customer {
+
+    enum EType {PRIVATE, RANDOM, COMPANY,}
+
     private int id;
     private String name;
     private String phoneNumber;
@@ -53,7 +51,7 @@ class Customer {
     public void setSeats(Seat[] seats, EType eType) {
         this.seats = seats;
         for (Seat seat : seats) {
-            seat.setSeatState(eType==EType.RANDOM ? SEATSTATE.randomReserved : SEATSTATE.reserved);
+            seat.setSeatState(eType==EType.RANDOM ? Seat.STATE.randomReserved : Seat.STATE.reserved);
         }
     }
     public void setSeats(Seat[] seats) {
@@ -103,4 +101,5 @@ class Customer {
             this.contactPerson = contactPerson;
         }
     }
+
 }
