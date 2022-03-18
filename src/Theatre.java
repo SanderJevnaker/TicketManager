@@ -1,4 +1,3 @@
-import javax.swing.*;
 import java.util.List;
 
 public class Theatre {
@@ -21,16 +20,15 @@ public class Theatre {
             int seatNdx;
             Seat[] seats = customer.getSeats();
             for (Seat customerSeat : seats) {
-                sectionNdx = customerSeat.getSection();
+                sectionNdx = customerSeat.getSectionNdx();
                 rowNdx = customerSeat.getRowNdx();
                 seatNdx = customerSeat.getSeatNdx();
                 Section.Row r[] = sections[sectionNdx].rows;
                 r[rowNdx].seats[seatNdx] = customerSeat;
             }
         }
-
         gui.showSeatPanel(sections[0]);
-
+        gui.frame.pack();
         Debug.console(this.toString());
     }
     public String getName() {

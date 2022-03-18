@@ -68,6 +68,7 @@ public class Gui extends GuiBase {
         }
         static class background {
             static Color seatsPanel = Color.white;
+            static Color seats = new Color(0, 200, 100);
         }
 
         static class pos {
@@ -113,7 +114,7 @@ public class Gui extends GuiBase {
         leftPanel.setName("Left Panel");
         leftPanel.setBounds(C.pos.leftPanel.x, C.pos.leftPanel.y, C.width.leftPanel, C.height.leftPanel);
         leftPanel.setBackground(C.color.leftPanel);
-        leftPanel.add(new JLabel("Sander Jevnaker"));
+        //leftPanel.add(new JLabel("Sander Jevnaker"));
 
         JPanel rightPanel = new JPanel();
         rightPanel.setName("Right Panel");
@@ -189,5 +190,6 @@ public class Gui extends GuiBase {
     void showSeatPanel(Section section) {
         JPanel panel = SectionMain.getInstance().render(this.theatre, section);
         leftPanel.add(panel);
+
     }
 }

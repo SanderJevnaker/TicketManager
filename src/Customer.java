@@ -1,6 +1,6 @@
 class Customer {
 
-    enum EType {PRIVATE, RANDOM, COMPANY,}
+    enum EType {FREE, PRIVATE, RANDOM, COMPANY,}
 
     private int id;
     private String name;
@@ -14,7 +14,7 @@ class Customer {
         sb.append("Name: ").append(name).append(Debug.NL).append("Phone: ").append(phoneNumber).append(Debug.NL);
 
         for (Seat seat : seats) {
-            sb.append("\tSeat in section: " + seat.getSection()).
+            sb.append("\tSeat in section: " + seat.getSectionNdx()).
                 append(", rowNdx: ").append(seat.getRowNdx()).
                 append(", seatNdx: ").append(seat.getSeatNdx()).append(Debug.NL);
         }
@@ -73,7 +73,7 @@ class Customer {
         this.setSeats(new Seat[0]);
     }
     public static class Private extends Customer {
-        Private(){
+        Private() {
             super();
             setEType(EType.PRIVATE);
         }
@@ -88,7 +88,7 @@ class Customer {
 
     public static class Company extends Customer{
         private String contactPerson;
-        Company(){
+        Company() {
             super();
             setEType(EType.COMPANY);
         }
@@ -101,5 +101,24 @@ class Customer {
             this.contactPerson = contactPerson;
         }
     }
+    static Customer copy(Customer fromCustomer) {
+        EType eType = fromCustomer.getEType();
+        Customer customer = null;
+        if (eType==EType.PRIVATE) {
+            customer = new Customer.Private();
+        }
+        else if (eType==EType.COMPANY) {
+            customer = new Customer.Company();
+            ((Company)customer).contactPerson = ((Company)fromCustomer).contactPerson;
+        }
+        else if (eType==EType.RANDOM) {
+            customer = new Customer.Random();
+        }
+        customer.name = fromCustomer.name;
+        customer.id = fromCustomer.id;
+        customer.phoneNumber = fromCustomer.phoneNumber;
+        customer.seats = Seat.copy(fromCustomer.seats);
 
+        return customer;
+    }
 }
