@@ -85,7 +85,7 @@ public class SectionMain extends GuiBase implements SectionInterface {
                 }
                 final Gui.CircleButton circleButton = new Gui.CircleButton(section, rowNdx, seatNdx, color);
                 circleButton.setName("R"+ rowNdx + "S" + seatNdx);
-                circleButton.setBackground(Gui.C.background.)
+                circleButton.setBackground(Gui.C.background.seats);
                 section.seatsPanel.add(circleButton, makeConstraints(seatNdx+1, rowNdx+1));
 
             }
