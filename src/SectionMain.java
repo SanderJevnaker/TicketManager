@@ -4,7 +4,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Arrays;
-
 /**
  * Singleton class<br/>
  * Methods:<br/>
@@ -15,7 +14,6 @@ import java.util.Arrays;
 public class SectionMain extends GuiBase implements SectionInterface {
     private static SectionMain instance; // Singleton
 
-    //
     private SectionMain() {
         instance = this;
     }
@@ -68,7 +66,7 @@ public class SectionMain extends GuiBase implements SectionInterface {
             section.seatsPanel.add(label, makeConstraints(0, rowNdx + 1));
         }
 
-        //seats
+        //seatsS
         for (Section.Row row : rows) {
             for (Seat seat : row.seats) {
                 final int rowNdx = seat.getRowNdx();
