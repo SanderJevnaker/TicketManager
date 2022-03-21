@@ -1,5 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.Arrays;
 
 /**
@@ -23,6 +26,7 @@ public class SectionMain extends GuiBase implements SectionInterface {
 
     @Override
     public JPanel render(Theatre theatre, Section section) {
+        Debug.console("SectionMain.render " + section.getName());
         int rowCount = section.getRowCount();
         int seatCount = section.getSeatCount(0);
 
@@ -78,16 +82,41 @@ public class SectionMain extends GuiBase implements SectionInterface {
                             Gui.C.color.randomCollected :
                             Gui.C.color.randomReserved;
                 } else {
-                    color = eType==Customer.EType.PRIVATE ?
+                    color = eType == Customer.EType.PRIVATE ?
                             Gui.C.color.reserved :
-                            eType==Customer.EType.COMPANY ? Gui.C.color.reserved :
+                            eType == Customer.EType.COMPANY ? Gui.C.color.reserved :
                                     Gui.C.color.free;
                 }
                 final Gui.CircleButton circleButton = new Gui.CircleButton(section, rowNdx, seatNdx, color);
-                circleButton.setName("R"+ rowNdx + "S" + seatNdx);
+                circleButton.setName("R" + rowNdx + "S" + seatNdx);
                 circleButton.setBackground(Gui.C.background.seats);
-                section.seatsPanel.add(circleButton, makeConstraints(seatNdx+1, rowNdx+1));
+                circleButton.addMouseListener(new MouseListener() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
 
+                    }
+
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+
+                    }
+
+                    @Override
+                    public void mouseReleased(MouseEvent e) {
+
+                    }
+
+                    @Override
+                    public void mouseEntered(MouseEvent e) {
+
+                    }
+
+                    @Override
+                    public void mouseExited(MouseEvent e) {
+
+                    }
+                });
+                section.seatsPanel.add(circleButton, makeConstraints(seatNdx + 1, rowNdx + 1));
             }
         }
         return section.seatsPanel;

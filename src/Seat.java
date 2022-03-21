@@ -9,19 +9,11 @@ public class Seat {
     private STATE seatState;
     private int sectionNdx;
 
-    Seat(int section, int rowNdx, int seatNdx, Customer customer) {
+    Seat(int section, int rowNdx, int seatNdx, STATE seatState, Customer customer) {
         this.customer = customer;
         this.rowNdx = rowNdx;
         this.seatNdx = seatNdx;
-        this.seatState = STATE.free;
-        this.sectionNdx = section;
-    }
-
-    Seat(int section, int rowNdx, int seatNdx) {
-        this.customer = null;
-        this.rowNdx = rowNdx;
-        this.seatNdx = seatNdx;
-        this.seatState = STATE.free;
+        this.seatState = seatState;
         this.sectionNdx = section;
     }
 
@@ -29,36 +21,36 @@ public class Seat {
         return customer;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
     public int getRowNdx() {
         return rowNdx;
-    }
-
-    public void setRowNdx(int rowNdx) {
-        this.rowNdx = rowNdx;
     }
 
     public int getSeatNdx() {
         return seatNdx;
     }
 
-    public void setSeatNdx(int seatNdx) {
-        this.seatNdx = seatNdx;
-    }
-
     public STATE getSeatState() {
         return seatState;
     }
 
-    public void setSeatState(STATE seatState) {
-        this.seatState = seatState;
-    }
-
     public int getSectionNdx() {
         return sectionNdx;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public void setRowNdx(int rowNdx) {
+        this.rowNdx = rowNdx;
+    }
+
+    public void setSeatNdx(int seatNdx) {
+        this.seatNdx = seatNdx;
+    }
+
+    public void setSeatState(STATE seatState) {
+        this.seatState = seatState;
     }
 
     public void setSection(int section) {
@@ -76,6 +68,10 @@ public class Seat {
             seatS[i].seatNdx = seats[i].seatNdx;
         }
         return seatS;
+    }
+
+    Seat copy(Customer customer) {
+        return new Seat(sectionNdx, rowNdx, seatNdx, seatState, customer);
     }
 
 }

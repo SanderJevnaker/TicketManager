@@ -15,49 +15,81 @@ class Customer {
 
         for (Seat seat : seats) {
             sb.append("\tSeat in section: " + seat.getSectionNdx()).
-                append(", rowNdx: ").append(seat.getRowNdx()).
-                append(", seatNdx: ").append(seat.getSeatNdx()).append(Debug.NL);
+                    append(", rowNdx: ").append(seat.getRowNdx()).
+                    append(", seatNdx: ").append(seat.getSeatNdx()).append(Debug.NL);
         }
 
         return String.valueOf(sb);
     }
+
+    static Customer factory(EType eType) {
+        switch (eType) {
+            case PRIVATE: return new Customer.Private();
+            case COMPANY: return new Customer.Company();
+            default: return new Customer.Random();
+        }
+    }
+    Customer copy(EType eType) {
+        // TODO: Explain and create factory method (static)
+        Customer customer = Customer.factory(eType);
+        if (eType==EType.PRIVATE) {
+            customer = new Customer.Private();
+        }
+        else if (eType==EType.COMPANY) {
+            customer = new Customer.Company();
+            ((Company)customer).contactPerson = ((Company)this).contactPerson;
+        }
+        else if (eType==EType.RANDOM) {
+            customer = new Customer.Random();
+        }
+
+        customer.id = id;
+        customer.name = name;
+        customer.phoneNumber = phoneNumber;
+        customer.copySeats(seats);
+        if (customer.eType==EType.COMPANY && customer.eType.equals(this.eType)) {
+            ((Company) customer).contactPerson = ((Company)this).contactPerson;
+        }
+        return customer;
+    }
+    Seat[] copySeats(Seat[] seats) {
+        Seat[] newSeats = new Seat[seats.length];
+        for (int i=0; i< seats.length; i++) {
+            newSeats[i] = seats[i].copy(this);
+        }
+        return newSeats;
+    }
+
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
     }
 
     public Seat[] getSeats() {
         return seats;
     }
-    public void setSeats(Seat[] seats, EType eType) {
-        this.seats = seats;
-        for (Seat seat : seats) {
-            seat.setSeatState(eType==EType.RANDOM ? Seat.STATE.randomReserved : Seat.STATE.reserved);
-        }
+    public String getName() {
+        return name;
     }
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+
     public void setSeats(Seat[] seats) {
-        if (this.eType==EType.PRIVATE && seats.length > 1) {
-            throw new IllegalArgumentException("Invalid parameter passed to Customer.setSeats: seats should have a length of 1");
-        }
+        assert this.eType==EType.PRIVATE && seats.length > 1;
         this.seats = seats;
     }
 
@@ -72,6 +104,7 @@ class Customer {
     Customer() {
         this.setSeats(new Seat[0]);
     }
+
     public static class Private extends Customer {
         Private() {
             super();
@@ -86,8 +119,9 @@ class Customer {
         }
     }
 
-    public static class Company extends Customer{
+    public static class Company extends Customer {
         private String contactPerson;
+
         Company() {
             super();
             setEType(EType.COMPANY);
@@ -101,24 +135,6 @@ class Customer {
             this.contactPerson = contactPerson;
         }
     }
-    static Customer copy(Customer fromCustomer) {
-        EType eType = fromCustomer.getEType();
-        Customer customer = null;
-        if (eType==EType.PRIVATE) {
-            customer = new Customer.Private();
-        }
-        else if (eType==EType.COMPANY) {
-            customer = new Customer.Company();
-            ((Company)customer).contactPerson = ((Company)fromCustomer).contactPerson;
-        }
-        else if (eType==EType.RANDOM) {
-            customer = new Customer.Random();
-        }
-        customer.name = fromCustomer.name;
-        customer.id = fromCustomer.id;
-        customer.phoneNumber = fromCustomer.phoneNumber;
-        customer.seats = Seat.copy(fromCustomer.seats);
 
-        return customer;
-    }
+
 }

@@ -1,11 +1,13 @@
 import javax.swing.*;
 
-public class Section {
-    Row[] rows;
-    String name;
-    private int rowCount;
-    private int[] rowSeatCount;
+public abstract class Section implements SectionInterface {
+    private final String name;
+    private final Row[] rows;
+    private final int rowCount;
+    private final int[] rowSeatCount;
     JPanel seatsPanel;
+
+    // TODO: Implement SEATCATEGORY
     Section(int section, String name, int[] rowSeatCount) {
         this.name = name;
         this.rowCount = rowSeatCount.length;
@@ -25,7 +27,7 @@ public class Section {
             this.rowNdx = rowNdx;
             seats = new Seat[seatCount];
             for (int seatNdx = 0; seatNdx < seatCount; seatNdx++) {
-                seats[seatNdx] = new Seat(section, rowNdx, seatNdx);
+                seats[seatNdx] = new Seat(section, rowNdx, seatNdx, Seat.STATE.free, null);
             }
         }
     }
@@ -34,7 +36,7 @@ public class Section {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("\tSection: ").append(name).append(Debug.NL).
-        append("\t\tRows: ").append(rows.length).append(Debug.NL);
+                append("\t\tRows: ").append(rows.length).append(Debug.NL);
         for (int i = 0; i < rows.length; i++) {
             Row row = rows[i];
             sb.append("\t\t\tRow number: ").append(i).append(", seats: ").append(row.seats.length).append(Debug.NL);
@@ -46,13 +48,13 @@ public class Section {
 //          Customer id: 2, Type: Private, Name: Donald Duck, Phone: 777 77 777, Section: Hoved, Row: 1, Seat: 14
 
                     sb.append("\t\t\t\tCustomer id: ").append(customer.getId()).
-                        append(", Type: ").append(customer.getEType()).
-                        append(", Name: ").append(customer.getName()).
-                        append(", Phone: ").append(customer.getPhoneNumber()).
-                        append(", Section: ").append(name).
-                        append(", Row: ").append(i).
-                        append(", Seat: ").append(j).
-                        append(Debug.NL);
+                            append(", Type: ").append(customer.getEType()).
+                            append(", Name: ").append(customer.getName()).
+                            append(", Phone: ").append(customer.getPhoneNumber()).
+                            append(", Section: ").append(name).
+                            append(", Row: ").append(i).
+                            append(", Seat: ").append(j).
+                            append(Debug.NL);
                 }
             }
 
@@ -76,6 +78,7 @@ public class Section {
     int getRowCount() {
         return rowCount;
     }
+
     int getSeatCount(int rowNdx) {
         return rowSeatCount[rowNdx];
     }
