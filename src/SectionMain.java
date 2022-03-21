@@ -12,7 +12,7 @@ import java.util.Arrays;
 public class SectionMain extends GuiBase implements SectionInterface {
     private static SectionMain instance; // Singleton
 
-    //
+
     private SectionMain() {
         instance = this;
     }
