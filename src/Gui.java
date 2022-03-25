@@ -23,6 +23,7 @@ public class Gui extends GuiBase {
         private final Color backgroundColor;
 
         CircleButton(Section section, int rowNdx, int seatNdx, Color color) {
+            this.id = section.getId();
             this.section = section;
             this.rowNdx = rowNdx;
             this.seatNdx = seatNdx;
@@ -46,10 +47,10 @@ public class Gui extends GuiBase {
 
     static class C {
         static class height {
-            static int frame = 658;
+            static int frame = 688;
             static int topPanel = 30;
-            static int leftPanel = 540;
-            static int rightPanel = 540;
+            static int leftPanel = 570;
+            static int rightPanel = 570;
             static int informPanel = 30;
             static int bottomPanel = 30;
             static int seat = 19;      // Height for seat-panels
@@ -121,7 +122,7 @@ public class Gui extends GuiBase {
         informPanel.setName("Inform Panel");
         informPanel.setBounds(C.pos.informPanel.x, C.pos.informPanel.y, C.width.informPanel, C.height.informPanel);
         informPanel.setBackground(C.color.informPanel);
-        inform("Kim the Controller makes a comeback");
+        informPanel.add(new JLabel());
 
         leftPanel = new JPanel();
         leftPanel.setName("Left Panel");

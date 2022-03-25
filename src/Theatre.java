@@ -16,6 +16,7 @@ public class Theatre {
         //Debug.console(this.toString());
     }
 
+
     String getName() {
         return name;
     }

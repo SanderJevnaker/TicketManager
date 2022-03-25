@@ -100,6 +100,23 @@ public class SectionMain extends GuiBase implements SectionInterface {
                 final Gui.CircleButton circleButton = new Gui.CircleButton(section, rowNdx, seatNdx, color);
                 circleButton.setName("C" + section + "R" + rowNdx + "S" + seatNdx);
                 circleButton.setBackground(Gui.C.background.seats);
+                circleButton.addKeyListener(new KeyListener() {
+
+                    @Override
+                    public void keyTyped(KeyEvent e) {
+
+                    }
+
+                    @Override
+                    public void keyPressed(KeyEvent e) {
+
+                    }
+
+                    @Override
+                    public void keyReleased(KeyEvent e) {
+
+                    }
+                });
                 circleButton.addMouseListener(new MouseListener() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
