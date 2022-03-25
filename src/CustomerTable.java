@@ -78,6 +78,11 @@ public class CustomerTable extends GuiBase {
         String[] columnNames = {"Id", "Name", "Type", "Phone"};
 
         table = new JTable(data, columnNames);
+
+        // Remove id column from screen (kept in customerTable.getModel().getValueAt(selectedRow, 0))
+        TableColumnModel tcm = table.getColumnModel();
+        tcm.removeColumn(tcm.getColumn(0));
+
         final JScrollPane jScrollPane = new JScrollPane(table);
         return jScrollPane;
     }
