@@ -153,7 +153,7 @@ public class SectionMain extends GuiBase implements SectionInterface {
 
                     @Override
                     public void mouseExited(MouseEvent e) {
-
+                        theatre.gui.inform("");
                     }
                 });
                 section.seatsPanel.add(circleButton, makeConstraints(seatNdx + 1, rowNdx + 1));

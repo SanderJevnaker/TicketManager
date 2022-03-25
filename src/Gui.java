@@ -36,6 +36,9 @@ public class Gui extends GuiBase {
             jLabel.setPreferredSize(new Dimension(square, square));
             this.add(jLabel);
         }
+        int getSectionNdx() { return id; }
+        int getRowNdx() { return rowNdx; }
+        int getSeatNdx() { return seatNdx; }
     }
 
     public void setSections(Section[] sections) {
@@ -86,7 +89,7 @@ public class Gui extends GuiBase {
         }
 
         static class pos {
-            static Point frame = new Point(40, 40);
+            static Point frame = new Point(0, 40);
             static Point topPanel = new Point(40, 60);
             static Point leftPanel = new Point(0, 30);
             static Point rightPanel = new Point(550, 30);
@@ -183,7 +186,7 @@ public class Gui extends GuiBase {
         ((JLabel) informPanel.getComponent(0)).setText(msg);
 /*        JLabel label = new JLabel(msg);
         informPanel.removeAll();
-        informPanel.add(label);
+        informPanel.add(label);   */
     }
 
     private JPanel makeContent(JPanel leftPanel, JPanel rightPanel) {
