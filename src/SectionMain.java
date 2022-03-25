@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Arrays;
@@ -96,7 +98,7 @@ public class SectionMain extends GuiBase implements SectionInterface {
                                     Gui.C.color.free;
                 }
                 final Gui.CircleButton circleButton = new Gui.CircleButton(section, rowNdx, seatNdx, color);
-                circleButton.setName("R" + rowNdx + "S" + seatNdx);
+                circleButton.setName("C" + section + "R" + rowNdx + "S" + seatNdx);
                 circleButton.setBackground(Gui.C.background.seats);
                 circleButton.addMouseListener(new MouseListener() {
                     @Override
@@ -116,7 +118,20 @@ public class SectionMain extends GuiBase implements SectionInterface {
 
                     @Override
                     public void mouseEntered(MouseEvent e) {
+                        Gui.CircleButton b = (Gui.CircleButton) e.getSource();
+                        StringBuilder str = new StringBuilder("Over seat on section " + section.getName());
+                        str.append(", row " + (b.getRowNdx()+1));
+                        str.append(", seat " + (b.getSeatNdx()+1));
+                        Section.Row row = section.getRows()[b.getRowNdx()];
+                        Seat seat = row.seats[b.getSeatNdx()];
+                        Customer customer =  seat.getCustomer();
+                        if (customer != null) {
 
+                            str.append(", " + customer.getEType() + ", customer " + customer.getName());
+                        }
+
+                        theatre.gui.inform(str.toString());
+                        boolean foo = true;
                     }
 
                     @Override

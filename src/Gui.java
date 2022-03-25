@@ -14,6 +14,7 @@ public class Gui extends GuiBase {
     private Section[] sections;
 
     static class CircleButton extends JPanel {
+        private int id;
         private final int square = 13;
         private final Section section;
         private final int rowNdx;
@@ -143,7 +144,7 @@ public class Gui extends GuiBase {
 
 
         frame.setPreferredSize(new Dimension(C.width.frame, C.height.frame));
-        frame.setLocation(40, 40);
+        frame.setLocation(C.pos.frame.x, C.pos.frame.y);
 
         frame.setContentPane(makeBase());
 
@@ -177,8 +178,9 @@ public class Gui extends GuiBase {
         return jPanel;
     }
 
-    private void inform(String msg) {
-        JLabel label = new JLabel(msg);
+    public void inform(String msg) {
+        ((JLabel) informPanel.getComponent(0)).setText(msg);
+/*        JLabel label = new JLabel(msg);
         informPanel.removeAll();
         informPanel.add(label);
     }
@@ -209,4 +211,5 @@ public class Gui extends GuiBase {
         }
         frame.pack();
     }
+
 }
