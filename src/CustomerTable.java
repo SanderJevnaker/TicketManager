@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.table.TableColumnModel;
 import java.awt.*;
 import java.util.HashMap;
 import java.util.List;
