@@ -134,7 +134,7 @@ public class Gui extends GuiBase {
         leftPanel.setBounds(C.pos.leftPanel.x, C.pos.leftPanel.y, C.width.leftPanel, C.height.leftPanel);
         leftPanel.setBackground(C.color.leftPanel);
 
-        JPanel rightPanel = new JPanel();
+        rightPanel = new JPanel();
         rightPanel.setName("Right Panel");
         rightPanel.setBounds(C.pos.rightPanel.x, C.pos.rightPanel.y, C.width.rightPanel, C.height.rightPanel);
         rightPanel.setBackground(C.color.rightPanel);
