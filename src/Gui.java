@@ -169,6 +169,13 @@ public class Gui extends GuiBase {
         frame.pack();
     }
 
+    void loadCustomerTable(Integer selectedRow) {
+
+        Debug.console("Gui.loadCustomerTable");
+        customerTable = new CustomerTable(theatre, selectedRow);
+    }
+
+
     private JPanel makeBase() {
         GridBagLayout gblFrame = new GridBagLayout();
         gblFrame.rowHeights = new int[]{C.height.topPanel, C.height.informPanel, C.height.leftPanel, C.height.bottomPanel};

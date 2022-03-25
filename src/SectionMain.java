@@ -22,6 +22,10 @@ public class SectionMain extends GuiBase implements SectionInterface {
         return instance == null ? new SectionMain() : instance;
     }
 
+    Seat getSeat(Gui.CircleButton b, Section section) {
+        return section.getRows()[b.getRowNdx()].seats[b.getSeatNdx()];
+    }
+
     @Override
     public JPanel render(Theatre theatre, Section section) {
         Debug.console("SectionMain.render " + section.getName());
@@ -136,12 +140,9 @@ public class SectionMain extends GuiBase implements SectionInterface {
                         str.append(", seat " + (b.getSeatNdx() + 1));
                         Customer customer = seat.getCustomer();
                         if (customer != null) {
-
                             str.append(", " + customer.getEType() + ", customer " + customer.getName());
                         }
-
                         theatre.gui.inform(str.toString());
-                        boolean foo = true;
                     }
 
                     @Override
