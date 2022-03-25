@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.awt.*;
 
 public class GuiBase {
@@ -11,4 +12,8 @@ public class GuiBase {
 
         return gbc;
     }
+        static JFrame getFrame() { // Frame is created by Gui constructor, ie. before it is possible to call getFrame()
+        return (JFrame) Frame.getFrames()[0];
+    }
+
 }

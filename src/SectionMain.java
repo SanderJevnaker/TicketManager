@@ -1,10 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Arrays;
+
 /**
  * Singleton class<br/>
  * Methods:<br/>
@@ -100,28 +99,23 @@ public class SectionMain extends GuiBase implements SectionInterface {
                 final Gui.CircleButton circleButton = new Gui.CircleButton(section, rowNdx, seatNdx, color);
                 circleButton.setName("C" + section + "R" + rowNdx + "S" + seatNdx);
                 circleButton.setBackground(Gui.C.background.seats);
-                circleButton.addKeyListener(new KeyListener() {
 
-                    @Override
-                    public void keyTyped(KeyEvent e) {
-
-                    }
-
-                    @Override
-                    public void keyPressed(KeyEvent e) {
-
-                    }
-
-                    @Override
-                    public void keyReleased(KeyEvent e) {
-
-                    }
-                });
                 circleButton.addMouseListener(new MouseListener() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-
+                        //TODO: implement Selected seats.
+                        Gui.CircleButton b = (Gui.CircleButton) e.getSource();
+                        Seat seat = getSeat(b, section);
+                        StringBuilder str = new StringBuilder("Over seat on section " + section.getName());
+                        str.append(", row " + (b.getRowNdx() + 1));
+                        str.append(", seat " + (b.getSeatNdx() + 1));
+                        Customer customer = seat.getCustomer();
+                        if (customer != null) {
+                            str.append(", " + customer.getEType() + ", customer " + customer.getName());
+                        }
+                        Debug.console(str.toString());
                     }
+
 
                     @Override
                     public void mousePressed(MouseEvent e) {
@@ -136,12 +130,11 @@ public class SectionMain extends GuiBase implements SectionInterface {
                     @Override
                     public void mouseEntered(MouseEvent e) {
                         Gui.CircleButton b = (Gui.CircleButton) e.getSource();
+                        Seat seat = getSeat(b, section);
                         StringBuilder str = new StringBuilder("Over seat on section " + section.getName());
-                        str.append(", row " + (b.getRowNdx()+1));
-                        str.append(", seat " + (b.getSeatNdx()+1));
-                        Section.Row row = section.getRows()[b.getRowNdx()];
-                        Seat seat = row.seats[b.getSeatNdx()];
-                        Customer customer =  seat.getCustomer();
+                        str.append(", row " + (b.getRowNdx() + 1));
+                        str.append(", seat " + (b.getSeatNdx() + 1));
+                        Customer customer = seat.getCustomer();
                         if (customer != null) {
 
                             str.append(", " + customer.getEType() + ", customer " + customer.getName());

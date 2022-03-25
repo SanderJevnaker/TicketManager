@@ -38,6 +38,7 @@ public class Theatre {
         if (loadData) { customers = Customers.getDummyData(); }
         gui.setSections(sections);
         gui.showSeats();
+        gui.loadCustomerTable(0);
     }
 
     @Override

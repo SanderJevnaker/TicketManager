@@ -10,6 +10,8 @@ public class Gui extends GuiBase {
     JFrame frame;
     Theatre theatre;
     JPanel leftPanel;
+    JPanel rightPanel;
+    CustomerTable customerTable;
 
     private Section[] sections;
 
