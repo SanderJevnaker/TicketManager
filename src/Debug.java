@@ -4,11 +4,20 @@ import java.util.Properties;
 
 public class Debug {
     // Empty privat constructor to prevent instances from beeing created (singleton)
-    private Debug() { }
+    private Debug() {
+    }
+
     private static boolean debugAtive = false;
     static final String NL = System.getProperty("line.separator");
-    static void on() { debugAtive = true; }
-    static void off() { debugAtive = false; }
+
+    static void on() {
+        debugAtive = true;
+    }
+
+    static void off() {
+        debugAtive = false;
+    }
+
     static void readConfig() {
         String isActive = "";
         Properties prop = new Properties();
@@ -19,6 +28,7 @@ public class Debug {
         }
         debugAtive = isActive != null && isActive.matches("true");
     }
+
     static void console(String msg) {
         if (debugAtive) {
             System.out.println(msg);

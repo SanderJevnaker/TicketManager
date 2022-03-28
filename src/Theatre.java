@@ -23,7 +23,7 @@ public class Theatre {
 
     private void makeSections() {
         rowSeatCount = new int[]{15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15};
-        sections =  new Section[1]; // Single section
+        sections = new Section[1]; // Single section
         sections[0] = new Section(0, "Hoved", rowSeatCount) {
             @Override
             public JPanel render(Theatre theatre, Section section) {
@@ -33,9 +33,12 @@ public class Theatre {
             }
         };
     }
+
     void load(boolean loadData) {
         Debug.console("Theatre.load(loadData), loadData: " + loadData);
-        if (loadData) { customers = Customers.getDummyData(); }
+        if (loadData) {
+            customers = Customers.getDummyData();
+        }
         gui.setSections(sections);
         gui.showSeats();
         gui.loadCustomerTable(0);

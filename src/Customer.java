@@ -3,37 +3,55 @@ import java.util.Arrays;
 class Customer {
 
     enum EType {FREE, PRIVATE, RANDOM, COMPANY,}
-     static class Type {
-        static String[] ddChoices = new String[] { "Tilfeldig", "Privat", "Selskap" };
+
+    static class Type {
+        static String[] ddChoices = new String[]{"Tilfeldig", "Privat", "Selskap"};
+
         static int getIndex(String ddType) {
             return Arrays.asList(ddChoices).indexOf(ddType);
         }
+
         static EType getEtype(String strType) {
             switch (strType) {
-                case "Private": return EType.PRIVATE;
-                case "Company": return EType.COMPANY;
-                default: return EType.RANDOM; // "Random"
+                case "Private":
+                    return EType.PRIVATE;
+                case "Company":
+                    return EType.COMPANY;
+                default:
+                    return EType.RANDOM; // "Random"
             }
         }
+
         static String getDdText(EType eType) {
             switch (eType) {
-                case PRIVATE: return "Privat";
-                case COMPANY: return "Selskap";
-                default: return "Tilfeldig";    // Random:
+                case PRIVATE:
+                    return "Privat";
+                case COMPANY:
+                    return "Selskap";
+                default:
+                    return "Tilfeldig";    // Random:
             }
         }
+
         static EType getDdEType(String ddType) {
             switch (ddType) {
-                case "Privat": return EType.PRIVATE;
-                case "Selskap": return EType.COMPANY;
-                default: return EType.RANDOM; // "Tilfeldig"
+                case "Privat":
+                    return EType.PRIVATE;
+                case "Selskap":
+                    return EType.COMPANY;
+                default:
+                    return EType.RANDOM; // "Tilfeldig"
             }
         }
+
         static String get(EType eType) {
             switch (eType) {
-                case PRIVATE: return "Private";
-                case COMPANY: return "Company";
-                default: return "Random"; // Random
+                case PRIVATE:
+                    return "Private";
+                case COMPANY:
+                    return "Company";
+                default:
+                    return "Random"; // Random
             }
         }
     }
@@ -60,27 +78,34 @@ class Customer {
 
     static Customer factory(EType eType) {
         switch (eType) {
-            case PRIVATE: return new Customer.Private();
-            case COMPANY: return new Customer.Company();
-            default: return new Customer.Random();
+            case PRIVATE:
+                return new Customer.Private();
+            case COMPANY:
+                return new Customer.Company();
+            default:
+                return new Customer.Random();
         }
     }
 
-    Customer copy() { return copy(eType); }
+    Customer copy() {
+        return copy(eType);
+    }
+
     Customer copy(EType eType) {
         Customer customer = Customer.factory(eType);
         customer.id = id;
         customer.name = name;
         customer.phoneNumber = phoneNumber;
         customer.copySeats(seats);
-        if (customer.eType==EType.COMPANY && customer.eType.equals(this.eType)) {
-            ((Company) customer).contactPerson = ((Company)this).contactPerson;
+        if (customer.eType == EType.COMPANY && customer.eType.equals(this.eType)) {
+            ((Company) customer).contactPerson = ((Company) this).contactPerson;
         }
         return customer;
     }
+
     void copySeats(Seat[] seats) {
         this.seats = new Seat[seats.length];
-        for (int i=0; i<seats.length; i++) {
+        for (int i = 0; i < seats.length; i++) {
             this.seats[i] = seats[i].copy(this);
         }
     }
@@ -88,15 +113,19 @@ class Customer {
     public int getId() {
         return id;
     }
+
     public String getName() {
         return name;
     }
+
     public String getPhoneNumber() {
         return phoneNumber;
     }
+
     public Seat[] getSeats() {
         return seats;
     }
+
     public EType getEType() {
         return eType;
     }
@@ -104,16 +133,20 @@ class Customer {
     public void setId(int id) {
         this.id = id;
     }
+
     public void setName(String name) {
         this.name = name;
     }
+
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+
     public void setSeats(Seat[] seats) {
-        assert this.eType==EType.PRIVATE && seats.length > 1;
+        assert this.eType == EType.PRIVATE && seats.length > 1;
         this.seats = seats;
     }
+
     public void setEType(EType eType) {
         this.eType = eType;
     }

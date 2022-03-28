@@ -1,6 +1,9 @@
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,6 +69,19 @@ public class CustomerTable extends GuiBase {
         JScrollPane jScrollPane = makeList(selectedRowNdx);
         container.add(jScrollPane, makeConstraints(0,2));
     }
+
+    public List<Customer> getCustomers() {
+        return customers;
+    }
+    private String getId(int rowNdx) {
+        return String.valueOf(table.getModel().getValueAt(rowNdx,0));
+    }
+
+    String getSelectedId() {
+        final int selectedNdx = table.getSelectedRow();
+        return selectedNdx==-1 ? null : getId(table.getSelectedRow());
+    }
+
     JScrollPane makeList(int selectedRowNdx) {
         final String[][] data = new String[customers.size()][4];
         Customer customer;
@@ -79,6 +95,19 @@ public class CustomerTable extends GuiBase {
         String[] columnNames = {"Id", "Name", "Type", "Phone"};
 
         table = new JTable(data, columnNames);
+        table.setModel(new DefaultTableModel(data, columnNames) {
+
+        @Override
+        public boolean isCellEditable(int i, int i1) {
+            return false; //To change body of generated methods, choose Tools | Templates.
+        }
+
+        });
+        if (selectedRowNdx > -1){
+            table.setRowSelectionInterval(selectedRowNdx, selectedRowNdx);
+            table.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        }
 
         // Remove id column from screen (kept in customerTable.getModel().getValueAt(selectedRow, 0))
         TableColumnModel tcm = table.getColumnModel();
@@ -86,5 +115,6 @@ public class CustomerTable extends GuiBase {
 
         final JScrollPane jScrollPane = new JScrollPane(table);
         return jScrollPane;
+
     }
 }

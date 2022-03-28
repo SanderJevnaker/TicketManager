@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class GuiBase {
     static GridBagConstraints makeConstraints(int xNdx, int yNdx) {
