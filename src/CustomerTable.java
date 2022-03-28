@@ -35,6 +35,7 @@ public class CustomerTable extends GuiBase {
         if (container.getComponentCount() > 0) {
             container.removeAll();
         }
+
         // Grid: 1 x 3
         JPanel title = new JPanel();
         JPanel jPanelButtons = new JPanel();
@@ -56,6 +57,33 @@ public class CustomerTable extends GuiBase {
         jPanelButtons.add(buttons.get("insert"));
         jPanelButtons.add(buttons.get("edit"));
         jPanelButtons.add(buttons.get("delete"));
+
+        CustomerTable customerTable = this;
+
+        ActionListener actionListener = new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                final String cmd = e.getActionCommand();
+                Form.FORM_ACTION action = cmd.matches("Rediger") ? Form.FORM_ACTION.EDIT :
+                        cmd.matches("Ny") ? Form.FORM_ACTION.INSERT : Form.FORM_ACTION.DELETE;
+                Debug.console("CustomerTable.actionPerformed." + action);
+
+                Debug.console("actionlistener: " + e);
+                //String action = ((JButton) e.getSource()).getName();
+                new CustomerForm(customerTable, action);
+
+            }
+        };
+
+        buttons.get("insert").addActionListener(actionListener);
+        buttons.get("edit").addActionListener(actionListener);
+        buttons.get("delete").addActionListener(actionListener);
+
+        buttons.get("insert").setName("insert");
+        buttons.get("edit").setName("edit");
+        buttons.get("delete").setName("delete");
+
 
         // Build and show customerList
         showList(selectedRowNdx);
