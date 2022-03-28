@@ -5,6 +5,16 @@ public class Customers {
     static int nextId = 1;
     static final List<Customer> list = new ArrayList<>();
 
+    static Customer find(int id) {
+        for (Customer customer : list) {
+            boolean foo = true;
+            if (customer.getId() == id) {
+                return customer;
+            }
+        }
+        return null;
+    }
+
     static List<Customer> getDummyData() {
         Customer customer = Customer.factory(Customer.EType.PRIVATE);
         customer.setId(nextId++);

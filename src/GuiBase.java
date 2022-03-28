@@ -14,8 +14,19 @@ public class GuiBase {
 
         return gbc;
     }
-        static JFrame getFrame() { // Frame is created by Gui constructor, ie. before it is possible to call getFrame()
+
+    static JFrame getFrame() { // Frame is created by Gui constructor, ie. before it is possible to call getFrame()
         return (JFrame) Frame.getFrames()[0];
+    }
+
+    // ACTION: Language dependent text for form actions
+    static final Map<Form.FORM_ACTION, String> ACTION;
+    static {
+        ACTION = new HashMap<>();
+        ACTION.put(Form.FORM_ACTION.INSERT, "New");
+        ACTION.put(Form.FORM_ACTION.EDIT, "Edit");
+        ACTION.put(Form.FORM_ACTION.DELETE, "Delete");
+
     }
 
 }
