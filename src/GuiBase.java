@@ -4,6 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GuiBase {
+    static GridBagConstraints makeConstraints(int xNdx, int yNdx, double weight) {
+        GridBagConstraints gbc = makeConstraints(xNdx, yNdx);
+        gbc.weightx = weight;
+        gbc.weighty = weight;
+
+        return gbc;
+    }
     static GridBagConstraints makeConstraints(int xNdx, int yNdx) {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.BOTH;
