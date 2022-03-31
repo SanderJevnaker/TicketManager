@@ -1,6 +1,8 @@
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -64,7 +66,6 @@ public class CustomerForm extends GuiBase implements Form {
         } else {
             customer = customer.copy();
         }
-        boolean foo = true;
         JDialog dialog = new JDialog();
         dialog.setTitle(ACTION.get(action) + " Customer");
 

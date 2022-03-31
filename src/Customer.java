@@ -114,6 +114,7 @@ class Customer {
         return id;
     }
 
+    public String getContact() {return getContact(); }
     public String getName() {
         return name;
     }
