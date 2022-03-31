@@ -37,9 +37,15 @@ public class Customers {
         customer.setId(nextId++);
         customer.setName("Oskar");
         customer.setPhoneNumber("5123124");
-        Seat[] sc = new Seat[2];
+        Seat[] sc = new Seat[8];
         sc[0] = new Seat(0, 4, 6, Seat.STATE.reserved, customer);
         sc[1] = new Seat(0, 4, 7, Seat.STATE.reserved, customer);
+        sc[2] = new Seat(0, 4, 8, Seat.STATE.reserved, customer);
+        sc[3] = new Seat(0, 4, 9, Seat.STATE.reserved, customer);
+        sc[4] = new Seat(0, 4, 10, Seat.STATE.reserved, customer);
+        sc[5] = new Seat(0, 4, 11, Seat.STATE.reserved, customer);
+        sc[6] = new Seat(0, 4, 12, Seat.STATE.reserved, customer);
+        sc[7] = new Seat(0, 4, 13, Seat.STATE.reserved, customer);
         customer.setSeats(sc);
         ((Customer.Company) customer).setContactPerson("Sander"); //CASTING
         list.add(customer);

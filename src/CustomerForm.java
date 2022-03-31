@@ -19,8 +19,10 @@ public class CustomerForm extends GuiBase implements Form {
     private final JTextField valueId = new JTextField();
     private final JTextField valueName = new JTextField();
     private final JTextField valuePhone = new JTextField();
+    private final JTextField valueContact = new JTextField();
     private final JComboBox ddCustomerTypes = new JComboBox();
     private final JTextArea valueSeats = new JTextArea();
+
 
     private static class C { // Constants
         static class size {
