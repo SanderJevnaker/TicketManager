@@ -70,6 +70,30 @@ public class CustomerForm extends GuiBase implements Form {
     public CustomerForm(CustomerTable table, Form.FORM_ACTION action) {
         Debug.console("CustomerForm, action: " + action);
         String selectedId = table.getSelectedId();
+
+        ddCustomerTypes = new JComboBox(ddChoices);
+        ddCustomerTypes.addPopupMenuListener(new PopupMenuListener() {
+            @Override
+            public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
+                String selectedItem = (String) ((JComboBox) e.getSource()).getSelectedItem();
+                saveCustomerType = Customer.Type.getDdEType(selectedItem);
+            }
+
+            @Override
+            public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
+                // Check if customerType has been changed
+                JComboBox ddChoices = (JComboBox) e.getSource();
+                Customer.EType selectedEtype = Customer.Type.getDdEType((String) ddChoices.getSelectedItem());
+                if (!selectedEtype.equals(saveCustomerType)) {
+                    setVisible(selectedEtype);
+                }
+            }
+
+            @Override
+            public void popupMenuCanceled(PopupMenuEvent e) {
+
+            }
+        });
         Customer customer = Customers.find(Integer.valueOf(selectedId));
         if (action == FORM_ACTION.INSERT) {
             customer = Customer.factory(customer.getEType());
@@ -87,15 +111,11 @@ public class CustomerForm extends GuiBase implements Form {
         JPanel form = new JPanel(); // Outer form: All but window-title - 1 column, 2 rows
         JPanel jFields = new JPanel(); // All field prompts and values - 2 columns, 5 rows
         JPanel buttonsPanel = new JPanel(); // All buttons - no grid
-        JScrollPane jScrollPane = new JScrollPane(); // scroll-panel for jFields
-        jScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
         // Informative only
         form.setName("form");
         jFields.setName("jFields");
         buttonsPanel.setName("buttonsPanel");
-        jScrollPane.setName("jScrollPane");
 
         // Outer form: 1 column, 2 rows (All but window-title)
         GridBagLayout gbl = new GridBagLayout();
@@ -197,11 +217,8 @@ public class CustomerForm extends GuiBase implements Form {
         dialog.setSize(C.size.dialog.width, C.size.dialog.height);
 
         // Debug!
-        jScrollPane.setBackground(Color.red);
-        jFields.setBackground(Color.blue);
-
-        jScrollPane.add(new JLabel("Heisan!"));
-
+        jFields.setBackground(C.background.formFields);
+        setVisible(customer.getEType());
         dialog.setVisible(true);
         dialog.pack();
     }

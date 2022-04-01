@@ -1,7 +1,6 @@
 import java.util.Arrays;
 
 class Customer {
-
     enum EType {FREE, PRIVATE, RANDOM, COMPANY,}
 
 
