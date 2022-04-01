@@ -3,8 +3,9 @@ import javax.swing.border.Border;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -17,7 +18,7 @@ public class CustomerForm extends GuiBase implements Form {
     private final JLabel promptPhone = new JLabel("Telephone");
     private final JLabel promptType = new JLabel("Type");
     private final JLabel promptContactPerson = new JLabel("Contact person");
-    private final JLabel promptSeats = new JLabel("Seat");
+    private final JLabel promptSeats = new JLabel();
 
 
     private final JTextField valueId = new JTextField();
@@ -221,5 +222,23 @@ public class CustomerForm extends GuiBase implements Form {
         setVisible(customer.getEType());
         dialog.setVisible(true);
         dialog.pack();
+    }
+
+    private void setVisible(Customer.EType eType) {
+        if (eType == Customer.EType.COMPANY) {
+            valueContact.setVisible(true);
+            promptContactPerson.setVisible(true);
+        } else {
+            valueContact.setVisible(false);
+            promptContactPerson.setVisible(false);
+        }
+        if (eType == Customer.EType.PRIVATE) {
+            valueSeats.setRows(1);
+            promptSeats.setText("Seat");
+        } else {
+            valueSeats.setRows(5);
+            promptSeats.setText("Seats");
+        }
+
     }
 }

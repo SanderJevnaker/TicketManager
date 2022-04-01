@@ -25,11 +25,11 @@ class Customer {
         static String getDdText(EType eType) {
             switch (eType) {
                 case PRIVATE:
-                    return "Privat";
+                    return "Private";
                 case COMPANY:
-                    return "Selskap";
+                    return "Company";
                 default:
-                    return "Tilfeldig";    // Random:
+                    return "Random";    // Random:
             }
         }
 
