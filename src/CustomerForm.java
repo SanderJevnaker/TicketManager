@@ -204,8 +204,5 @@ public class CustomerForm extends GuiBase implements Form {
 
         dialog.setVisible(true);
         dialog.pack();
-
-
-
     }
 }
