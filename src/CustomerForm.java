@@ -1,5 +1,7 @@
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.event.PopupMenuEvent;
+import javax.swing.event.PopupMenuListener;
 import java.awt.*;
 import java.util.Arrays;
 import java.util.Collections;
@@ -22,32 +24,44 @@ public class CustomerForm extends GuiBase implements Form {
     private final JTextField valueName = new JTextField();
     private final JTextField valuePhone = new JTextField();
     private final JTextField valueContact = new JTextField();
-    private final JComboBox ddCustomerTypes = new JComboBox();
+    private JComboBox ddCustomerTypes = new JComboBox();
     private final JTextArea valueSeats = new JTextArea();
+    private Customer.EType saveCustomerType;
+
+    //String[] ddChoices = new String[]{"Random", "Private", "Company"};
+    String[] ddChoices = Customer.ddChoices;
+
+    JPanel jFields = new JPanel(); // All field prompts and values - 2 columns, 5 rows
+
 
     private static class C { // Constants
         static class size {
             static final Dimension dialog = new Dimension(380, 250);
         }
+
         static class pos {
             static final Point dialog = new Point(560, 250);
         }
+
         static class height {
             static final int fields = 190;
             static final int buttons = 36;
         }
+
         static class color {
             static final Color seatsBackground = Color.white; // valueSeats: Reset to inputBackgroundColor
             static final Color highlightColor = new Color(0, 255, 27); // valueSeats
             static final Color changedField = Color.yellow;
         }
+
         static class background {
             static final Color baseBackground = Color.white;
             static final Color customerForm = Color.red; // customerForm (should be hidden by formFields panel)
-            static final Color formFields = new Color(45,150,255); // formFields
+            static final Color formFields = new Color(45, 150, 255);
             static final Color seats = Color.white; // seats
-            static final Color formButtons = new Color(228,228,228); // formButtons
+            static final Color formButtons = new Color(228, 228, 228); // formButtons
         }
+
         static class border {
             static Border field; // Set by constructor
         }
@@ -100,23 +114,22 @@ public class CustomerForm extends GuiBase implements Form {
         jFields.setLayout(gblF);
 
         // Add all prompts to fields-panel
-        jFields.add(promptName, makeConstraints(0,0));
-        jFields.add(promptPhone, makeConstraints(0,1));
-        jFields.add(promptType, makeConstraints(0,2));
-        if (customer.getEType()==Customer.EType.COMPANY) {
-            jFields.add(promptContactPerson, makeConstraints(0,3));
-        }
-        jFields.add(promptSeats, makeConstraints(0,4));
+        jFields.add(promptName, makeConstraints(0, 0));
+        jFields.add(promptPhone, makeConstraints(0, 1));
+        jFields.add(promptType, makeConstraints(0, 2));
+        jFields.add(promptContactPerson, makeConstraints(0, 3));
+
+        jFields.add(promptSeats, makeConstraints(0, 4));
         // Add all values to fields-panel
         jFields.add(valueId);
-        jFields.add(valueName, makeConstraints(1,0));
-        jFields.add(valuePhone, makeConstraints(1,1));
-//      jFields.add(ddCustomerTypes, makeConstraints(1,2));
-        if (customer.getEType()==Customer.EType.COMPANY) {
-            jFields.add(valueContact, makeConstraints(1,3));
-        }
+        jFields.add(valueName, makeConstraints(1, 0));
+        jFields.add(valuePhone, makeConstraints(1, 1));
+        jFields.add(ddCustomerTypes, makeConstraints(1, 2));
+        jFields.add(valueContact, makeConstraints(1, 3));
 
-        jFields.add(new JScrollPane(valueSeats), makeConstraints(1,4));
+        saveCustomerType = customer.getEType();
+        ddCustomerTypes.setSelectedItem(Customer.Type.getDdText(saveCustomerType));
+        jFields.add(new JScrollPane(valueSeats), makeConstraints(1, 4));
 
         // All field- prompts and values added to jFields
 
@@ -125,6 +138,20 @@ public class CustomerForm extends GuiBase implements Form {
         buttonsPanel.add(buttons.get("ok"));
         buttonsPanel.add(buttons.get("cancel"));
 
+        ActionListener actionListener = new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                final String cmd = e.getActionCommand();
+                if (cmd.matches("Cancel")) {
+                    dialog.dispose();
+                }
+            }
+        };
+
+        buttons.get("cancel").addActionListener(actionListener);
+
+
         // jFields and buttonsPanel completely populated
 
         // Set all field values
@@ -132,42 +159,34 @@ public class CustomerForm extends GuiBase implements Form {
         valueId.setText(String.valueOf(customer.getId()));
         valueName.setText(customer.getName());
         valuePhone.setText(customer.getPhoneNumber());
-        if (customer.getEType()==Customer.EType.COMPANY) {
+        if (customer.getEType() == Customer.EType.COMPANY) {
             valueContact.setText(((Customer.Company) customer).getContactPerson());
         }
-
-//        final Dimension maxSize = valueSeats.getPreferredSize();
-//        maxSize.height = 100;
-        //valueSeats.setAutoscrolls(true);
-//        valueSeats.setPreferredSize(maxSize);
-//        valueSeats.setMinimumSize(maxSize);
-        //valueSeats.setMaximumSize(maxSize);
-        //valueSeats.revalidate();
 
         Seat[] seats = customer.getSeats();
         String[] seatsTxt = new String[seats.length];
         int i = 0;
         for (Seat seat : seats) {
-            seatsTxt[i++] = "Section " + (seat.getSectionNdx()+1) + ", row " + (seat.getRowNdx()+1) + ", seat " + (seat.getSeatNdx()+1);
+            seatsTxt[i++] = "Section " + (seat.getSectionNdx() + 1) + ", row " + (seat.getRowNdx() + 1) + ", seat " + (seat.getSeatNdx() + 1);
         }
         valueSeats.setText(Arrays.stream(seatsTxt).collect(Collectors.joining("\n")));
         valueSeats.setEditable(false);
-        valueSeats.setRows(5);
-        // Add jFields to scroll-panel  ← Problem
-        //jScrollPane.add(jFields);  ← Problem - use setViewportView
-        // Set jFields as content in jScrollPane
-        //jScrollPane.setViewportView(jFields); // ← Ok
-//        final Dimension preferredSize = jScrollPane.getPreferredSize();
-//        preferredSize.height = 20;
-//        jScrollPane.setPreferredSize(preferredSize);
-//        jScrollPane.setMaximumSize(preferredSize);
-        // Add scroll-panel to form row 0
-        //form.add(jScrollPane, makeConstraints(0,0));
-        // Test without scroll-panel
-        form.add(jFields, makeConstraints(0,0));
+
+
+        if (action == FORM_ACTION.DELETE) {
+            valueName.setEditable(false);
+            valuePhone.setEditable(false);
+            valueContact.setEditable(false);
+            ddCustomerTypes.setEditable(false);
+            valueSeats.setEditable(false);
+        }
+
+
+        // Add jFields to form row 0
+        form.add(jFields, makeConstraints(0, 0));
 
         // Add buttons to form row 1
-        form.add(buttonsPanel, makeConstraints(0,1));
+        form.add(buttonsPanel, makeConstraints(0, 1));
 
         // All fields and buttons added to form
         // Add form to dialog

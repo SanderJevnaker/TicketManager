@@ -21,12 +21,14 @@ public class CustomerTable extends GuiBase {
             static final int header = 30;
             static final int buttons = 32;
         }
+
         static class background {
-            static final Color title = new Color(215,235,255);
-            static final Color buttonsPanel = new Color(228,228,228);
+            static final Color title = new Color(215, 235, 255);
+            static final Color buttonsPanel = new Color(228, 228, 228);
             static final Color scrollPanel = Color.white;
         }
     }
+
     CustomerTable(Theatre theatre, int selectedRowNdx) {
         this.theatre = theatre;
         this.selectedRowNdx = selectedRowNdx;
@@ -65,8 +67,8 @@ public class CustomerTable extends GuiBase {
             @Override
             public void actionPerformed(ActionEvent e) {
                 final String cmd = e.getActionCommand();
-                Form.FORM_ACTION action = cmd.matches("Rediger") ? Form.FORM_ACTION.EDIT :
-                        cmd.matches("Ny") ? Form.FORM_ACTION.INSERT : Form.FORM_ACTION.DELETE;
+                Form.FORM_ACTION action = cmd.matches("Edit") ? Form.FORM_ACTION.EDIT :
+                        cmd.matches("New") ? Form.FORM_ACTION.INSERT : Form.FORM_ACTION.DELETE;
                 Debug.console("CustomerTable.actionPerformed." + action);
 
                 Debug.console("actionlistener: " + e);
@@ -89,31 +91,32 @@ public class CustomerTable extends GuiBase {
         showList(selectedRowNdx);
 
 
-
         container.add(jPanelButtons, makeConstraints(0, 1));
         GuiBase.getFrame().pack();
     }
+
     void showList(int selectedRowNdx) {
         JScrollPane jScrollPane = makeList(selectedRowNdx);
-        container.add(jScrollPane, makeConstraints(0,2));
+        container.add(jScrollPane, makeConstraints(0, 2));
     }
 
     public List<Customer> getCustomers() {
         return customers;
     }
+
     private String getId(int rowNdx) {
-        return String.valueOf(table.getModel().getValueAt(rowNdx,0));
+        return String.valueOf(table.getModel().getValueAt(rowNdx, 0));
     }
 
     String getSelectedId() {
         final int selectedNdx = table.getSelectedRow();
-        return selectedNdx==-1 ? null : getId(table.getSelectedRow());
+        return selectedNdx == -1 ? null : getId(table.getSelectedRow());
     }
 
     JScrollPane makeList(int selectedRowNdx) {
         final String[][] data = new String[customers.size()][4];
         Customer customer;
-        for (int i=0; i<customers.size(); i++) {
+        for (int i = 0; i < customers.size(); i++) {
             customer = customers.get(i);
             data[i][0] = String.valueOf(customer.getId());
             data[i][1] = customer.getName();
@@ -125,13 +128,13 @@ public class CustomerTable extends GuiBase {
         table = new JTable(data, columnNames);
         table.setModel(new DefaultTableModel(data, columnNames) {
 
-        @Override
-        public boolean isCellEditable(int i, int i1) {
-            return false; //To change body of generated methods, choose Tools | Templates.
-        }
+            @Override
+            public boolean isCellEditable(int i, int i1) {
+                return false; //To change body of generated methods, choose Tools | Templates.
+            }
 
         });
-        if (selectedRowNdx > -1){
+        if (selectedRowNdx > -1) {
             table.setRowSelectionInterval(selectedRowNdx, selectedRowNdx);
             table.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
